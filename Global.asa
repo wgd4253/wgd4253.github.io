@@ -1,0 +1,71 @@
+<script language="VBscript" runat="server">
+
+ Sub Application_OnStart '-------------------------------------------------------------------------------------
+       
+       Application("totalCount") = 0 
+       Set obj = Server.CreateObject("Scripting.FileSystemObject")
+       Set stream = obj.OpenTextFile(Server.MapPath("/count.txt"), 1)
+       Application("totalCount") = stream.ReadLine  
+
+       Application("conStr") = "Provider=sqloledb;Data Source=db.assatech.com;Initial Catalog=dbassatech;User ID=assatech;Password=assa3095@@;"  '---> ?? ??? ?
+
+ 
+
+       stream.Close
+       Set stream = Nothing
+       Set obj = Nothing
+
+       Application("nowCount") = 0 
+ End Sub
+
+ 
+
+ Sub Application_OnEnd '-------------------------------------------------------------------------------------
+       '???? ??? ? ? ? or ?off or ???? ???.. but ???? ??? ??? ??X
+       Set obj = Server.CreateObject("Scripting.FileSystemObject")
+       Set stream = obj.OpenTextFile(Server.MapPath("/count.txt"), 2) 
+       stream.WriteLine(Application("totalCount")) '--> ????? ??? ??
+
+
+       stream.Close
+       Set stream = Nothing
+       Set obj = Nothing
+ End Sub
+
+ 
+
+ Sub Session_OnStart '-------------------------------------------------------------------------------------
+       '?? ??? ???? ?
+       Application.Lock
+       Application("totalCount") = Application("totalCount") + 1 
+       Application("nowCount") = Application("nowCount") + 1    
+       Application.UnLock
+
+ 
+
+       If Application("totalCount") Mod 10 = 0 Then  
+              Set obj = Server.CreateObject("Scripting.FileSystemObject")
+              Set stream = obj.OpenTextFile(Server.MapPath("/count.txt"), 2) 
+              stream.WriteLine(Application("totalCount")) 
+
+
+         stream.Close
+         Set stream = Nothing
+         Set obj = Nothing
+       End If
+ End Sub
+
+ 
+
+ Sub Session_OnEnd '-------------------------------------------------------------------------------------
+       '??? ??? ?
+       Application.Lock
+       Application("nowCount") = Application("nowCount") - 1    
+       Application.UnLock
+ End Sub
+
+</script>
+
+
+
+'??: https://funylife.tistory.com/entry/MSSQL??-??-??-???-???-?? [FunyLife]
