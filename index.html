@@ -352,10 +352,11 @@
 
     <!-- attend_area -->
 	<!---  <link type="text/css" rel="stylesheet" href="member.css" />  CSS 링크 -->
-    <script type="text/javascript" src="asp/member.js"></script>    <!--- JavaScript 함수 링크 -->
-    <form method="post" action="addOK.asp"> <!---addOK.asp 링크 -->
+  
 	
     <div class="attending_area">
+	  <script type="text/javascript" src="asp/member.js"></script>    <!--- JavaScript 함수 링크 -->
+      <form method="post" action="addOK.asp"> <!---addOK.asp 링크 -->
         <div class="container">
             <div class="row">
                 <div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1">
@@ -398,7 +399,7 @@
                                                   </div>
 												</div>
                                                 <div class="col-xl-12">
-                                                    <button type="submit" class="boxed_btn3" onClick="Send();">R.S.V.P </button>
+                                                    <input type="button" class="boxed_btn3" onClick="Send();" value=R.S.V.P />
                                                 </div>
                                             </div>
                                         </form>
@@ -410,6 +411,7 @@
                 </div>
             </div>
         </div>
+	  </form>
     </div>
     <!-- / attend_area -->
 
